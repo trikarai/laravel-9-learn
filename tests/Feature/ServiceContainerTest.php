@@ -5,6 +5,8 @@ namespace Tests\Feature;
 use App\Data\Bar;
 use App\Data\Foo;
 use App\Data\Person;
+use App\Services\HelloService;
+use App\Services\HelloServiceIndonesia;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
  use Tests\TestCase;
@@ -115,5 +117,21 @@ class ServiceContainerTest extends TestCase
 
         self::assertSame($bar, $bar2);
 
+    }
+
+    /**
+     * Test that the HelloService interface is correctly bound to the HelloServiceIndonesia implementation
+     * in the service container, and that the hello method returns the expected greeting.
+     *
+     * This test registers HelloServiceIndonesia as the singleton implementation for HelloService,
+     * resolves it from the container, and asserts that calling hello('Tri') returns 'Halo, Tri!'.
+     */
+    public function testInterfaceToClass() {
+
+        $this->app->singleton(HelloService::class, HelloServiceIndonesia::class);
+
+        $helloService = $this->app->make(HelloService::class);
+
+        self::assertEquals('Halo, Tri!', $helloService->hello('Tri'));
     }
 }
