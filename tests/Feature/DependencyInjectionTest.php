@@ -16,11 +16,11 @@ class DependencyInjectionTest extends TestCase
      *
      * @return void
      */
-    public function testDepenjencyInjection()
+    public function testDependencyInjection()
     {
         $foo = new Foo();
         $bar = new Bar($foo);
- 
+
         self:assertEquals('Foo and Bar', $bar->bar());
     }
 }
