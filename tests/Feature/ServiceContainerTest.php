@@ -3,9 +3,10 @@
 namespace Tests\Feature;
 
 use App\Data\Foo;
+use App\Data\Person;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
-use Tests\TestCase;
+ use Tests\TestCase;
 
 class ServiceContainerTest extends TestCase
 {
@@ -27,6 +28,30 @@ class ServiceContainerTest extends TestCase
         self::assertEquals("Foo", $foo2->foo());
 
         self::assertNotSame($foo, $foo2);
+
+    }
+
+    /**
+     * Test the binding functionality of the service container.
+     *
+     * This test verifies that the service container can successfully bind
+     * and resolve dependencies as expected.
+     *
+     * @return void
+     */
+    public function testBind(){
+        // $person = $this->app->make(Person::class); // new Person()
+        // self::assertNotNull($person)
+        $this->app->bind(Person::class, function($app) {
+            return new Person("Tri", "LastName");
+        });
+
+        $person = $this->app->make(Person::class);
+        $person2 = $this->app->make(Person::class);
+
+        self::assertEquals("Tri", $person->firstName);
+        self::assertEquals("Tri", $person2->firstName);
+        self::assertNotSame($person, $person2);
 
     }
 }
