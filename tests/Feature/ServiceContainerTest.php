@@ -103,10 +103,17 @@ class ServiceContainerTest extends TestCase
             return new Foo();
         });
 
+        $this->app->singleton(Bar::class, function($app) {
+            return new Bar($app->make(Foo::class));
+        });
+
         $foo = $this->app->make(Foo::class);
         $bar = $this->app->make(Bar::class);
+        $bar2 = $this->app->make(Bar::class);
 
         self::assertSame($foo, $bar->foo);
+
+        self::assertSame($bar, $bar2);
 
     }
 }
