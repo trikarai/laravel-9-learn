@@ -54,4 +54,24 @@ class ServiceContainerTest extends TestCase
         self::assertNotSame($person, $person2);
 
     }
+
+    /**
+     * Test that a service registered as a singleton in the service container
+     * returns the same instance on multiple resolves.
+     *
+     * @return void
+     */
+    public function testSingleton(){
+        $this->app->singleton(Person::class, function($app) {
+            return new Person("Tri", "LastName");
+        });
+
+        $person = $this->app->make(Person::class);
+        $person2 = $this->app->make(Person::class);
+
+        self::assertEquals("Tri", $person->firstName);
+        self::assertEquals("Tri", $person2->firstName);
+        self::assertSame($person, $person2);
+
+    }
 }
