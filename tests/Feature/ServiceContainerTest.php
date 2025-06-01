@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Data\Bar;
 use App\Data\Foo;
 use App\Data\Person;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -86,5 +87,26 @@ class ServiceContainerTest extends TestCase
         self::assertEquals("Tri", $person->firstName);
         self::assertEquals("Tri", $person2->firstName);
         self::assertSame($person, $person2);
+    }
+
+    /**
+     * Test the dependency injection functionality within the service container.
+     *
+     * This test verifies that dependencies are correctly resolved and injected
+     * by the Laravel service container when requested.
+     *
+     * @return void
+     */
+    public function testDependencyInjection2()
+    {
+        $this->app->singleton(Foo::class, function() {
+            return new Foo();
+        });
+
+        $foo = $this->app->make(Foo::class);
+        $bar = $this->app->make(Bar::class);
+
+        self::assertSame($foo, $bar->foo);
+
     }
 }
