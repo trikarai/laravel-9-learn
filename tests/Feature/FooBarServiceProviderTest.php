@@ -41,4 +41,8 @@ class FooBarServiceProviderTest extends TestCase
 
         self::assertEquals('Halo, Tri!', $helloService1->hello('Tri'));
     }
+
+    public function testEmptyPropertySingletons(){
+        self::assertTrue(true);
+    }
 }
