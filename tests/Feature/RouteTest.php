@@ -27,4 +27,10 @@ class RouteTest extends TestCase
         $response->assertStatus(302);
         $response->assertRedirect('/test');
     }
+
+    public function testFailRoute()
+    {
+        $response = $this->get('/fail');
+        $response->assertSeeText('404 Not Found');
+    }
 }

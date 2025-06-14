@@ -22,3 +22,7 @@ Route::get('/test', function () {
 });
 
 Route::redirect('/redirect', '/test');
+
+Route::fallback(function () {
+    return '404 Not Found';
+});
