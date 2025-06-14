@@ -20,3 +20,5 @@ Route::get('/', function () {
 Route::get('/test', function () {
     return 'Hello World!';
 });
+
+Route::redirect('/redirect', '/test');

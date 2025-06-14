@@ -19,4 +19,12 @@ class RouteTest extends TestCase
         $response->assertStatus(200);
         $response->assertSeeText('Hello World!');
     }
+
+    public function testRedirectRoute()
+    {
+        $response = $this->get('/redirect');
+
+        $response->assertStatus(302);
+        $response->assertRedirect('/test');
+    }
 }
