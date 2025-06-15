@@ -19,4 +19,11 @@ class ViewTest extends TestCase
 
         $response->assertSeeText('Hello Tri');
     }
+
+    public function testTemplate()
+    {
+        $this->view('hello.world', ['name' => 'Sasuke'])
+            ->assertSeeText('Hello Sasuke');
+
+    }
 }
