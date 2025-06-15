@@ -35,6 +35,10 @@ Route::get('/products/{productId}/items/{itemId}', function ($productId, $itemId
     return "product : ". $productId . ' items : '. $itemId;
 });
 
+Route::get('/categories/{id}', function ($id) {
+    return "Category : " . $id;
+})->where('id', '[0-9]+');
+
 Route::fallback(function () {
     return '404 Not Found';
 });

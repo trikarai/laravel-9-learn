@@ -42,4 +42,13 @@ class RouteTest extends TestCase
         $this->get('/products/1/items/1')
             ->assertSeeText('product : 1 items : 1');
     }
+
+    public function testRouteParameterRegex()
+    {
+        $this->get('/categories/1')
+            ->assertSeeText('Category : 1');
+
+        $this->get('/categories/abc')
+            ->assertSeeText('404 Not Found');
+    }
 }
