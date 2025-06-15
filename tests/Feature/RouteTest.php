@@ -33,4 +33,13 @@ class RouteTest extends TestCase
         $response = $this->get('/fail');
         $response->assertSeeText('404 Not Found');
     }
+
+    public function testRouteParameter()
+    {
+        $this->get('/products/1')
+            ->assertSeeText('product : 1');
+
+        $this->get('/products/1/items/1')
+            ->assertSeeText('product : 1 items : 1');
+    }
 }

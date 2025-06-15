@@ -27,6 +27,14 @@ Route::get('/hello', function () {
     return view('hello.world', ['name' => 'Tri']);
 });
 
+Route::get('/products/{id}', function ($productId) {
+   return "product : ". $productId;
+});
+
+Route::get('/products/{productId}/items/{itemId}', function ($productId, $itemId) {
+    return "product : ". $productId . ' items : '. $itemId;
+});
+
 Route::fallback(function () {
     return '404 Not Found';
 });
