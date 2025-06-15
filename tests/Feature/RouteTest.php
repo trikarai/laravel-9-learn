@@ -60,4 +60,13 @@ class RouteTest extends TestCase
         $this->get('/users/')
             ->assertSeeText('User :');
     }
+
+    public function testRouteNamed()
+    {
+        $this->get('/product/123')
+            ->assertSeeText('Link http://localhost/products/123');
+
+        $this->get('/product-redirect/123')
+            ->assertRedirect('/products/123');
+    }
 }

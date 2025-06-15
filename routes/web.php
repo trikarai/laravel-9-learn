@@ -27,22 +27,32 @@ Route::get('/hello', function () {
     return view('hello.world', ['name' => 'Tri']);
 });
 
-Route::get('/products/{id}', function ($productId) {
+Route::get('/products/{productId}', function ($productId) {
    return "product : ". $productId;
-});
+})->name('products');
 
 Route::get('/products/{productId}/items/{itemId}', function ($productId, $itemId) {
     return "product : ". $productId . ' items : '. $itemId;
-});
+})->name('product.item');
 
 Route::get('/categories/{id}', function ($id) {
     return "Category : " . $id;
-})->where('id', '[0-9]+');
+})->where('id', '[0-9]+')->name('category');
 
 Route::get('/users/{userId?}', function ($userId = null) {
     return "User : " . $userId;
+})->name('users');
+
+
+Route::get('/product/{id}', function ($id) {
+    $link =  route('products', ['productId' => $id]);
+    return "Link $link";
+});
+
+Route::get('/product-redirect/{id}', function ($id) {
+     return redirect()->route('products', ['productId' => $id]);
 });
 
 Route::fallback(function () {
     return '404 Not Found';
-});
+})->name('not-found');
