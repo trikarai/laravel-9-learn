@@ -51,4 +51,13 @@ class RouteTest extends TestCase
         $this->get('/categories/abc')
             ->assertSeeText('404 Not Found');
     }
+
+    public function testRouteParameterOptional()
+    {
+        $this->get('/users/1')
+            ->assertSeeText('User : 1');
+
+        $this->get('/users/')
+            ->assertSeeText('User :');
+    }
 }

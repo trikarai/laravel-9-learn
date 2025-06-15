@@ -39,6 +39,10 @@ Route::get('/categories/{id}', function ($id) {
     return "Category : " . $id;
 })->where('id', '[0-9]+');
 
+Route::get('/users/{userId?}', function ($userId = null) {
+    return "User : " . $userId;
+});
+
 Route::fallback(function () {
     return '404 Not Found';
 });
